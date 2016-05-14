@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{29A745D4-5A2F-4170-A0F1-54C77F151892}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log2Console", "Log2Console\Log2Console.csproj", "{EE81C506-55E4-417E-B1D6-09453F89C7CD}"
@@ -20,29 +22,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichTextBoxLinks", "RichTextBoxLinks\RichTextBoxLinks.csproj", "{8B833B00-BB4C-4FAF-B6C4-BF77824F96A1}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs04
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Log2Console\\Log2Console.csproj
-		SccProjectName1 = Log2Console
-		SccLocalPath1 = Log2Console
-		SccProjectUniqueName2 = Test\\Test.csproj
-		SccProjectName2 = Test
-		SccLocalPath2 = Test
-		SccProjectUniqueName3 = L2C_Setup\\L2C_Setup.vdproj
-		SccProjectName3 = L2C_Setup
-		SccLocalPath3 = L2C_Setup
-		SccProjectUniqueName4 = External\\WindowsAPICodePack\\Core\\Core.csproj
-		SccProjectTopLevelParentUniqueName4 = LogFmwk.sln
-		SccProjectName4 = External/WindowsAPICodePack/Core
-		SccLocalPath4 = External\\WindowsAPICodePack\\Core
-		SccProjectUniqueName5 = External\\WindowsAPICodePack\\Shell\\Shell.csproj
-		SccProjectTopLevelParentUniqueName5 = LogFmwk.sln
-		SccProjectName5 = External/WindowsAPICodePack/Shell
-		SccLocalPath5 = External\\WindowsAPICodePack\\Shell
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CodeAnalysisDebug|Any CPU = CodeAnalysisDebug|Any CPU
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +59,7 @@ Global
 		{7C4E8E11-81E3-4297-A4D9-6F6DB90C8EF7}.CodeAnalysisDebug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C4E8E11-81E3-4297-A4D9-6F6DB90C8EF7}.CodeAnalysisDebug|Any CPU.Build.0 = Debug|Any CPU
 		{7C4E8E11-81E3-4297-A4D9-6F6DB90C8EF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C4E8E11-81E3-4297-A4D9-6F6DB90C8EF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C4E8E11-81E3-4297-A4D9-6F6DB90C8EF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D18BE89-D210-49EB-A9DD-2246FBB3DF6D}.CodeAnalysisDebug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D18BE89-D210-49EB-A9DD-2246FBB3DF6D}.CodeAnalysisDebug|Any CPU.Build.0 = Debug|Any CPU
