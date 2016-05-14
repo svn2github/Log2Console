@@ -167,6 +167,8 @@ namespace Log2Console.Log
                 sb.Append(@"\b " + fieldType.Field + @": \b0 ");
                 if (info.Length > 40)
                     sb.Append(@" \line ");
+                info = info.Replace("\r\n", @" \line ");
+                info = info.Replace("\n", @" \line ");
                 sb.Append(info + @" \line ");
             }
             sb.Append(@"}");
