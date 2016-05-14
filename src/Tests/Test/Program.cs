@@ -22,11 +22,14 @@ namespace Test
 
         static void Main(string[] args)
         {
+            Console.Title = "TestLog4Net";
+            Console.WriteLine("Press x to exit, any other key to run test");
             ConsoleKeyInfo key = Console.ReadKey();
             while (key.Key != ConsoleKey.X)
             {
                 DoLog();
                 DoWinDebug();
+                Console.WriteLine("Press x to exit, any other key to run test");
                 key = Console.ReadKey();
             }
         }

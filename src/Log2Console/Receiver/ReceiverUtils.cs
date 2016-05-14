@@ -1,5 +1,6 @@
 ﻿using Log2Console.Log;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -24,7 +25,7 @@ namespace Log2Console.Receiver
 
         static XmlReaderSettings CreateSettings()
         {
-            return new XmlReaderSettings { CloseInput = false, ValidationType = ValidationType.None };
+            return new XmlReaderSettings { CloseInput = false, ValidationType = ValidationType.None, ConformanceLevel = ConformanceLevel.Fragment };
         }
 
         /// <summary>
@@ -51,6 +52,49 @@ namespace Log2Console.Receiver
             // which we handle in TcpReceiver
             using (var reader = XmlReader.Create(logStream, XmlSettings, XmlContext))
                 return ParseLog4JXmlLogEvent(reader, defaultLogger);
+        }
+
+        public static IEnumerable<LogMessage> ParseLog4JXmlLogEvents(Stream logStream, string defaultLogger)
+        {
+            // In case of ungraceful disconnect 
+            // logStream is closed and XmlReader throws the exception,
+            // which we handle in TcpReceiver
+            using (var reader = XmlReader.Create(logStream, XmlSettings, XmlContext))
+            {
+                while (!reader.EOF)
+                {
+                    if(reader.NodeType == XmlNodeType.Element && reader.Name == "log4j:event")
+                    {
+                        LogMessage logMessage = null;
+                        string logEntry = "";
+                        try
+                        {
+                            logEntry = reader.ReadOuterXml();
+                            byte[] buffer = Encoding.UTF8.GetBytes(logEntry);
+                            MemoryStream ms = new MemoryStream(buffer);
+                            logMessage = ParseLog4JXmlLogEvent(ms, defaultLogger);
+                        }
+                        catch(Exception e)
+                        {
+                            logMessage = new LogMessage()
+                            {
+                                LoggerName = defaultLogger,
+                                RootLoggerName = defaultLogger,
+                                ThreadName = "NA",
+                                Message = "Error parsing log" + Environment.NewLine + logEntry,
+                                TimeStamp = DateTime.Now,
+                                Level = LogLevels.Instance[LogLevel.Info],
+                                ExceptionString = e.Message
+                            };
+                        }
+                        yield return logMessage;
+                    }
+                    else
+                    {
+                        reader.Read();
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -99,7 +143,10 @@ namespace Log2Console.Receiver
         {
             var logMsg = new LogMessage();
 
-            reader.Read();
+            while (!reader.EOF && (reader.NodeType != XmlNodeType.Element || reader.Name != "log4j:event"))
+            {
+                reader.Read();
+            }
             if ((reader.MoveToContent() != XmlNodeType.Element) || (reader.Name != "log4j:event"))
                 throw new Exception("The Log Event is not a valid log4j Xml block.");
 
