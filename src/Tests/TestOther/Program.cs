@@ -10,7 +10,7 @@ namespace TestOther
     class Program
     {
         const string logBody =
-@"<log4j:event logger=""UserQuery"" level=""INFO"" timestamp=""1463245168149"" thread=""12"">
+@"<log4j:event logger=""UserQuery"" level=""INFO"" timestamp=""THE_TIME_IS"" thread=""12"">
     <log4j:message>{0}</log4j:message>
     <log4j:properties>
         <log4j:data name=""log4japp"" value=""LINQPad Query Server(13380)"" />
@@ -44,6 +44,9 @@ namespace TestOther
                     SendLogMessage(stream, "comments",
                         "<!-- Comments? -->" + logBody);
 
+                    SendLogMessage(stream, "comments in the middle",
+                        logBody.Replace("<log4j:properties>", "!-- Comments anyone --><log4j:properties>"));
+
                     SendLogMessage(stream, "Extra spaces in open",
                         logBody.Replace("<log4j:message>", "<log4j:message              >"));
 
@@ -52,6 +55,37 @@ namespace TestOther
 
                     SendLogMessage(stream, "Done with Test messages");
 
+                    SendLogMessage(stream, "Good Luck with this one",
+@"123<log4j:event logger=""UserQuery"" level=""TRACE"" timestamp=""THE_TIME_IS"" thread=""12"">
+    < log4j:message abc = ""def"" > Trace Message </ log4j:message >
+          < log4j:properties >
+               < log4j:data name = ""log4japp"" value = ""LINQPad Query Server(13380)"" />
+                  < log4j:data name = ""log4jmachinename"" value = ""DLM-DEV"" />
+                 </ log4j:properties >
+              </ log4j:event >wft how did I get here?<log4j:event logger=""UserQuery"" level=""DEBUG"" timestamp=""THE_TIME_IS"" thread=""12"">
+    <log4j:message 123>Debug Message</log4j:message>
+    <log4j:properties>
+        <log4j:data name=""log4japp"" value=""LINQPad Query Server(13380)"" />
+        <log4j:data name=""log4jmachinename"" value=""DLM-DEV"" />
+    </log4j:properties>
+</log4j:event>321321321321
+<log4j:event logger=""UserQuery"" level=""ERROR"" timestamp=""THE_TIME_IS"" thread=""12"">
+    < log4j:message > Hey there's a valid message in the middle of this junk </ log4j:message >
+    < log4j:properties >
+        < log4j:data name = ""log4japp"" value = ""LINQPad Query Server(13380)"" />
+        < log4j:data name = ""log4jmachinename"" value = ""DLM-DEV"" />
+    </ log4j:properties >
+</ log4j:event>
+<log4j:event />123123data name = ""log4japp"" value = ""LINQPad Query Server(13380)"" />
+                  < log4j:data name = ""log4jmachinename"" value = ""DLM-DEV"" />
+                 </ log4j:properties >
+              </ log4j:event >wft how did I get here?<log4j:event logger=""UserQuery"" level=""DEBUG"" timestamp=""THE_TIME_IS"" thread=""12"">
+    <log4j:message 123>Debug Message</log4j:message>
+    <log4j:properties>
+        <log4j:data name=""log4japp"" value=""LINQPad Query Server(13380)"" />
+        <log4j:data name=""log4jmachinename"" value=""DLM-DEV"" />
+    </log4j:properties>
+</log4j:event>321<log4j:event >123123data name = ""log4j");
                     //stream.Flush();
                     stream.Close();
                 }
@@ -62,6 +96,7 @@ namespace TestOther
 
         static void SendLogMessage(NetworkStream stream, string logMessage, string logBody = logBody)
         {
+            logBody = logBody.Replace("THE_TIME_IS", (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString("0"));
             Console.WriteLine(logMessage);
             byte[] buffer = Encoding.UTF8.GetBytes(String.Format(logBody, logMessage));
             stream.Write(buffer, 0, buffer.Length);

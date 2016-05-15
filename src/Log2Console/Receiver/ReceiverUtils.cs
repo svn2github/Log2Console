@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace Log2Console.Receiver
@@ -54,46 +55,89 @@ namespace Log2Console.Receiver
                 return ParseLog4JXmlLogEvent(reader, defaultLogger);
         }
 
+        /// <summary>
+        /// Try to parse the xml.
+        /// </summary>
+        /// <param name="outerXml"></param>
+        /// <param name="defaultLogger"></param>
+        /// <returns></returns>
+        private static LogMessage TryParseLog4JXmlLogEvent(string outerXml, string defaultLogger)
+        {
+            LogMessage logMessage;
+            try
+            {
+                MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(outerXml));
+                logMessage = ParseLog4JXmlLogEvent(ms, defaultLogger);
+            }
+            catch(Exception e)
+            {
+                logMessage = new LogMessage()
+                {
+                    LoggerName = nameof(Log2Console.Receiver.ReceiverUtils),
+                    RootLoggerName = nameof(Log2Console.Receiver.ReceiverUtils),
+                    ThreadName = "NA",
+                    Message = "Error parsing log" + Environment.NewLine + outerXml,
+                    TimeStamp = DateTime.Now,
+                    Level = LogLevels.Instance[LogLevel.Warn],
+                    ExceptionString = e.Message
+                };
+            }
+            logMessage.RawLog = outerXml;
+            return logMessage;
+        }
+
+        /// <summary>
+        /// IEnumerable of log events
+        /// </summary>
+        /// <param name="logStream"></param>
+        /// <param name="defaultLogger"></param>
+        /// <returns></returns>
         public static IEnumerable<LogMessage> ParseLog4JXmlLogEvents(Stream logStream, string defaultLogger)
         {
-            // In case of ungraceful disconnect 
-            // logStream is closed and XmlReader throws the exception,
-            // which we handle in TcpReceiver
-            using (var reader = XmlReader.Create(logStream, XmlSettings, XmlContext))
+            var buffer = new byte[4096];
+            int bytesRead = 0;
+            int startPos = 0;
+            while((bytesRead = logStream.Read(buffer, startPos, buffer.Length - startPos)) > 0)
             {
-                while (!reader.EOF)
+                string xmlText = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+                int leftOversPos = 0;
+                // This regex will match the start and end tags we are looking for.
+                var matches = Regex.Matches(xmlText, $"<(/?)\\s*(log4j:event)[^<>]*(/?)>");
+
+                // Break up the log messages into single log messages before processing.
+                foreach (Match match in matches)
                 {
-                    if(reader.NodeType == XmlNodeType.Element && reader.Name == "log4j:event")
+                    bool IsBeginElement = String.IsNullOrWhiteSpace(match.Groups[1].Value);
+                    bool IsEmptyElement = match.Value.EndsWith("/>");
+                    if (IsBeginElement)
                     {
-                        LogMessage logMessage = null;
-                        string logEntry = "";
-                        try
+                        // Some data before the start tag, this will probably fail.
+                        if (startPos < match.Index)
                         {
-                            logEntry = reader.ReadOuterXml();
-                            byte[] buffer = Encoding.UTF8.GetBytes(logEntry);
-                            MemoryStream ms = new MemoryStream(buffer);
-                            logMessage = ParseLog4JXmlLogEvent(ms, defaultLogger);
+                            yield return TryParseLog4JXmlLogEvent(xmlText.Substring(startPos, match.Index - startPos), defaultLogger);
                         }
-                        catch(Exception e)
+                        // Empty XML Element, this will always fail, but go ahead and try anyway.
+                        if (IsEmptyElement)
                         {
-                            logMessage = new LogMessage()
-                            {
-                                LoggerName = defaultLogger,
-                                RootLoggerName = defaultLogger,
-                                ThreadName = "NA",
-                                Message = "Error parsing log" + Environment.NewLine + logEntry,
-                                TimeStamp = DateTime.Now,
-                                Level = LogLevels.Instance[LogLevel.Info],
-                                ExceptionString = e.Message
-                            };
+                            yield return TryParseLog4JXmlLogEvent(xmlText.Substring(match.Index, match.Length), defaultLogger);
+                            leftOversPos = startPos = match.Index + match.Length;
                         }
-                        yield return logMessage;
+                        else
+                        {
+                            startPos = match.Index;
+                        }
                     }
-                    else
+                    else // End element process outer xml
                     {
-                        reader.Read();
+                        yield return TryParseLog4JXmlLogEvent(xmlText.Substring(startPos, match.Index + match.Length - startPos), defaultLogger);
+                        leftOversPos = startPos = match.Index + match.Length;
                     }
                 }
+
+                var leftOvers = Encoding.UTF8.GetBytes(xmlText.Substring(leftOversPos));
+                leftOvers.CopyTo(buffer, 0);
+                startPos = leftOvers.Length;
             }
         }
 

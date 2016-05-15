@@ -74,6 +74,11 @@ namespace Log2Console.Log
         /// </summary>
         public uint SourceFileLineNr;
 
+        /// <summary>
+        /// The log as it was read.
+        /// </summary>
+        public string RawLog;
+
         public void CheckNull()
         {
             if (string.IsNullOrEmpty(LoggerName))
@@ -171,6 +176,8 @@ namespace Log2Console.Log
                 info = info.Replace("\n", @" \line ");
                 sb.Append(info + @" \line ");
             }
+            // Maybe this isn't a good idea, possibly on a new tab.
+            sb.Append(@"\line \line Raw Log \line " + this.RawLog);
             sb.Append(@"}");
             return sb.ToString();
         }
