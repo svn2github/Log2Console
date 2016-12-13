@@ -21,7 +21,7 @@ namespace SerilogTest
                 .WriteTo.RollingFile(new JsonFormatter(), "log-{Date}.txt", retainedFileCountLimit: 2, buffered: true, flushToDiskInterval:TimeSpan.FromSeconds(5))
                 .WriteTo.LiterateConsole()
                 //.WriteTo.Udp(IPAddress.Loopback, 7071)
-                .WriteTo.UDPSink(IPAddress.Loopback, 7071)
+                .WriteTo.UDPSink(IPAddress.Loopback, 1337)
                 .CreateLogger();
 
             Log.Verbose("Verbose");
@@ -47,6 +47,26 @@ namespace SerilogTest
             Domath("10/5");
             Domath("8%2");
             Domath("99/0");
+
+            var person = new Person("Person1", "123", "private info");
+            person.Addresses = new List<Address>();
+            person.Addresses.Add(new Address()
+            {
+                Line1 = "Address1"
+            });
+            person.Addresses.Add(new Address()
+            {
+                Line1 = "Address2"
+            });
+            Log.Information("This person has multiple addresses {@Person}, 1st one is {@Address}", person, person.Addresses.FirstOrDefault());
+            Log.Information("This person has multiple addresses {Person}, 1st one is {Address}", person, person.Addresses.FirstOrDefault());
+
+            Log.Information("This bool is {True}", true);
+            Log.Information("The number is {One}", 1);
+            Log.Information("The time is {Now}", DateTime.Now);
+            Log.Information("Googles uri is {Uri}", new Uri("http://google.com/"));
+
+            Log.Information("Don't try to serialize this {$Person}", person);
         }
 
         static void Domath(string math)

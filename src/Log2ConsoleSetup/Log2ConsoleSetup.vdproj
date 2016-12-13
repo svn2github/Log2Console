@@ -46,12 +46,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9809A07FEC71D18B8AF8747EBBF1CBE3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_F03687E2A6554E48B667DE4A0AA1552E"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -73,6 +67,12 @@
         "OwnerKey" = "8:_A8CE65B1251180814087BE568C395C13"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_9809A07FEC71D18B8AF8747EBBF1CBE3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -82,7 +82,7 @@
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
         "OutputFilename" = "8:Debug\\Log2ConsoleSetup.msi"
-        "PackageFilesAs" = "3:2"
+        "PackageFilesAs" = "3:1"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
         "Compression" = "3:2"
@@ -91,6 +91,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -101,12 +109,28 @@
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
-        "Compression" = "3:2"
+        "Compression" = "3:1"
         "SignOutput" = "11:FALSE"
         "CertificateFile" = "8:"
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -316,15 +340,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Log2Console"
-        "ProductCode" = "8:{8A1E4F39-714F-42D9-A73F-257619ED4F18}"
-        "PackageCode" = "8:{8B5F0367-611F-412E-A6C9-45C2B8B68DBE}"
+        "ProductCode" = "8:{50998C1A-137E-4F8F-A6A0-62635C1F959D}"
+        "PackageCode" = "8:{9F01028A-B913-452A-9EDD-BDB43EDA495E}"
         "UpgradeCode" = "8:{2A137B8E-9AB2-43FB-9EBC-628E989DCBFD}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.6"
+        "ProductVersion" = "8:1.6.2"
         "Manufacturer" = "8:Log2Console"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/DewJunkie/Log2Console"
@@ -332,7 +356,7 @@
         "Subject" = "8:"
         "ARPCONTACT" = "8:Log2Console"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:Log2Console"
+        "ARPCOMMENTS" = "8:Log2Console 1.6 RC1"
         "ARPURLINFOABOUT" = "8:https://github.com/DewJunkie/Log2Console"
         "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
@@ -443,12 +467,12 @@
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
+            "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
             "Target" = "8:_F03687E2A6554E48B667DE4A0AA1552E"
             "Folder" = "8:_BFCE4E478F5E4691AF1B1CCD67159EF2"
             "WorkingFolder" = "8:_B42E984976D74777AEFB598EDD0F212D"
-            "Icon" = "8:"
+            "Icon" = "8:_F03687E2A6554E48B667DE4A0AA1552E"
             "Feature" = "8:"
             }
         }

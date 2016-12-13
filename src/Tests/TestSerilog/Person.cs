@@ -22,5 +22,7 @@ namespace SerilogTest
         public string Name { get; set; }
         private string Ssn { get; set; }
         private string property1;
+
+        public List<Address> Addresses { get; set; }
     }
 }
