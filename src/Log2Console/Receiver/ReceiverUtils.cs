@@ -99,7 +99,7 @@ namespace Log2Console.Receiver
             int startPos = 0;
             while((bytesRead = logStream.Read(buffer, startPos, buffer.Length - startPos)) > 0)
             {
-                string xmlText = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                string xmlText = Encoding.UTF8.GetString(buffer, 0, bytesRead + startPos);
 
                 int leftOversPos = 0;
                 // This regex will match the start and end tags we are looking for.
