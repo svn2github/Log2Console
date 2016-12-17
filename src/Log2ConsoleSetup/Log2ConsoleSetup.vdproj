@@ -52,13 +52,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9809A07FEC71D18B8AF8747EBBF1CBE3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A8CE65B1251180814087BE568C395C13"
+        "OwnerKey" = "8:_C6619780B23063AE67BFD706FEEE78F0"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -70,7 +64,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C6619780B23063AE67BFD706FEEE78F0"
+        "OwnerKey" = "8:_A8CE65B1251180814087BE568C395C13"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_9809A07FEC71D18B8AF8747EBBF1CBE3"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -175,6 +175,11 @@
             "AssemblyAsmDisplayName" = "8:ICSharpCode.TextEditor, Version=3.0.0.3437, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_9809A07FEC71D18B8AF8747EBBF1CBE3"
+                    {
+                    "Name" = "8:ICSharpCode.TextEditor.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:ICSharpCode.TextEditor.dll"
             "TargetName" = "8:"
@@ -201,6 +206,11 @@
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_98FA069438F9D99E4468964C3BECE4C9"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
@@ -227,6 +237,11 @@
             "AssemblyAsmDisplayName" = "8:log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_A8CE65B1251180814087BE568C395C13"
+                    {
+                    "Name" = "8:log4net.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:log4net.dll"
             "TargetName" = "8:"
@@ -253,6 +268,11 @@
             "AssemblyAsmDisplayName" = "8:RichTextBoxLinks, Version=1.0.6191.12180, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_C6619780B23063AE67BFD706FEEE78F0"
+                    {
+                    "Name" = "8:RichTextBoxLinks.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:RichTextBoxLinks.dll"
             "TargetName" = "8:"
@@ -328,15 +348,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Log2Console"
-        "ProductCode" = "8:{DABF7879-B755-475A-A72C-3C4A2C17D8DE}"
-        "PackageCode" = "8:{DEAEF41A-73B0-420A-B511-0868B9C0B464}"
+        "ProductCode" = "8:{F6371FE1-0BAE-448C-91E9-63F3F64FFD41}"
+        "PackageCode" = "8:{5F6AA311-4DFA-401D-9314-903D41EA9467}"
         "UpgradeCode" = "8:{2A137B8E-9AB2-43FB-9EBC-628E989DCBFD}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.6.3"
+        "ProductVersion" = "8:1.6.4"
         "Manufacturer" = "8:Log2Console"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/DewJunkie/Log2Console"
