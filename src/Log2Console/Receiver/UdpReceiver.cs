@@ -70,6 +70,10 @@ namespace Log2Console.Receiver
         [Category("Configuration")]
         [DisplayName("Log Format")]
         public LogFormat LogFormatType { get; set; } = LogFormat.Log4J;
+
+        [Category("Configuration")]
+        [DisplayName("Condense Camel Case")]
+        public bool CondenseCamelCase { get; set; } = true;
             
 
 
@@ -159,8 +163,24 @@ namespace Log2Console.Receiver
                             logMsg = SerilogParser.Parse(loggingEvent, "UdpLogger");
                             break;
                     }
-                    logMsg.RootLoggerName = _remoteEndPoint.Address.ToString().Replace(".", "-");
-                    logMsg.LoggerName = string.Format("{0}_{1}", _remoteEndPoint.Address.ToString().Replace(".", "-"), logMsg.LoggerName);
+                    //logMsg.RootLoggerName = _remoteEndPoint.Address.ToString().Replace(".", "-");
+                    //logMsg.LoggerName = string.Format("{0}_{1}", _remoteEndPoint.Address.ToString().Replace(".", "-"), logMsg.LoggerName);
+                    logMsg.RootLoggerName = logMsg.LoggerName;
+                    if (CondenseCamelCase)
+                    {
+                        var newName = "";
+                        var stopAt = logMsg.LoggerName.LastIndexOf('.');
+                        for (int i = 0; i < stopAt; i++)
+                        {
+                            if (Char.IsUpper(logMsg.LoggerName[i]) || logMsg.LoggerName[i] == '.')
+                            {
+                                newName += logMsg.LoggerName[i];
+                            }
+                        }
+                        newName += logMsg.LoggerName.Substring(stopAt);
+                        logMsg.RootLoggerName = newName;
+                    }
+                    logMsg.LoggerName = string.Format(":{1}.{0}", logMsg.LoggerName, _port);
                     Notifiable.Notify(logMsg);
 
                 }

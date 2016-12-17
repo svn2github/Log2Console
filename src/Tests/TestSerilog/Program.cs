@@ -24,19 +24,21 @@ namespace SerilogTest
                 .WriteTo.UDPSink(IPAddress.Loopback, 1337)
                 .CreateLogger();
 
-            Log.Verbose("Verbose");
-            Log.Debug("Debug");
-            Log.Information("Information");
-            Log.Warning("Warning");
-            Log.Error("Error");
-            Log.Fatal("Fatal");
+            var logger = Log.Logger.ForContext<Program>();
+
+            logger.Verbose("Verbose");
+            logger.Debug("Debug");
+            logger.Information("Information");
+            logger.Warning("Warning");
+            logger.Error("Error");
+            logger.Fatal("Fatal");
 
             var me = new Person("Duane", "123", "?");
-            Log.Information("I just created {@Someone} at {Now}", me, DateTime.Now);
+            logger.Information("I just created {@Someone} at {Now}", me, DateTime.Now);
             int count = 1;
-            Log.Information("Create {Count} people", count);
+            logger.Information("Create {Count} people", count);
             var fruit = new string[] {"Apple", "Pear", "Orange"};
-            Log.Information("In my bowl I have {Fruit}", fruit);
+            logger.Information("In my bowl I have {Fruit}", fruit);
 
             //Console.WriteLine("Enter a simple math statement.  Operators supported are (+,-,/,*)");
             //var line = "";
@@ -58,15 +60,17 @@ namespace SerilogTest
             {
                 Line1 = "Address2"
             });
-            Log.Information("This person has multiple addresses {@Person}, 1st one is {@Address}", person, person.Addresses.FirstOrDefault());
-            Log.Information("This person has multiple addresses {Person}, 1st one is {Address}", person, person.Addresses.FirstOrDefault());
+            logger.Information("This person has multiple addresses {@Person}, 1st one is {@Address}", person, person.Addresses.FirstOrDefault());
+            logger.Information("This person has multiple addresses {Person}, 1st one is {Address}", person, person.Addresses.FirstOrDefault());
 
-            Log.Information("This bool is {True}", true);
-            Log.Information("The number is {One}", 1);
-            Log.Information("The time is {Now}", DateTime.Now);
-            Log.Information("Googles uri is {Uri}", new Uri("http://google.com/"));
+            logger.Information("This bool is {True}", true);
+            logger.Information("The number is {One}", 1);
+            logger.Information("The time is {Now}", DateTime.Now);
+            logger.Information("Googles uri is {Uri}", new Uri("http://google.com/"));
 
-            Log.Information("Don't try to serialize this {$Person}", person);
+            logger.Information("Don't try to serialize this {$Person}", person);
+
+            Log.Warning("No context set on this one");
         }
 
         static void Domath(string math)

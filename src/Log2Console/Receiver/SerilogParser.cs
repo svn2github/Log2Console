@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Log2Console.Log;
@@ -38,6 +39,9 @@ namespace Log2Console.Receiver
             LogMessage logMessage = new LogMessage();
             foreach (var child in logJson.Children().OfType<JProperty>())
             {
+#if DEBUG
+                Debug.WriteLine($"{child.Name}={child.Value}");
+#endif
                 switch (child.Name)
                 {
                     case "timestamp":

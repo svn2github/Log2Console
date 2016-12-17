@@ -52,13 +52,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C6619780B23063AE67BFD706FEEE78F0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_98FA069438F9D99E4468964C3BECE4C9"
+        "OwnerKey" = "8:_9809A07FEC71D18B8AF8747EBBF1CBE3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -70,7 +64,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9809A07FEC71D18B8AF8747EBBF1CBE3"
+        "OwnerKey" = "8:_98FA069438F9D99E4468964C3BECE4C9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C6619780B23063AE67BFD706FEEE78F0"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -98,6 +98,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
         "Release"
@@ -167,11 +175,6 @@
             "AssemblyAsmDisplayName" = "8:ICSharpCode.TextEditor, Version=3.0.0.3437, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_9809A07FEC71D18B8AF8747EBBF1CBE3"
-                    {
-                    "Name" = "8:ICSharpCode.TextEditor.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ICSharpCode.TextEditor.dll"
             "TargetName" = "8:"
@@ -198,11 +201,6 @@
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_98FA069438F9D99E4468964C3BECE4C9"
-                    {
-                    "Name" = "8:Newtonsoft.Json.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
@@ -229,11 +227,6 @@
             "AssemblyAsmDisplayName" = "8:log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_A8CE65B1251180814087BE568C395C13"
-                    {
-                    "Name" = "8:log4net.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:log4net.dll"
             "TargetName" = "8:"
@@ -260,11 +253,6 @@
             "AssemblyAsmDisplayName" = "8:RichTextBoxLinks, Version=1.0.6191.12180, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C6619780B23063AE67BFD706FEEE78F0"
-                    {
-                    "Name" = "8:RichTextBoxLinks.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:RichTextBoxLinks.dll"
             "TargetName" = "8:"
@@ -340,15 +328,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Log2Console"
-        "ProductCode" = "8:{50998C1A-137E-4F8F-A6A0-62635C1F959D}"
-        "PackageCode" = "8:{9F01028A-B913-452A-9EDD-BDB43EDA495E}"
+        "ProductCode" = "8:{DABF7879-B755-475A-A72C-3C4A2C17D8DE}"
+        "PackageCode" = "8:{DEAEF41A-73B0-420A-B511-0868B9C0B464}"
         "UpgradeCode" = "8:{2A137B8E-9AB2-43FB-9EBC-628E989DCBFD}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.6.2"
+        "ProductVersion" = "8:1.6.3"
         "Manufacturer" = "8:Log2Console"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/DewJunkie/Log2Console"
