@@ -99,21 +99,26 @@ namespace Log2Console.Receiver
                 using (var ns = new NetworkStream(socket, FileAccess.Read, false))
                     while (_socket != null)
                     {
-                        var logMsg = ReceiverUtils.ParseLog4JXmlLogEvent(ns, "TcpLogger");
-                        logMsg.RootLoggerName = logMsg.LoggerName;
-                        logMsg.LoggerName = string.Format(":{1}.{0}", logMsg.LoggerName, _port);
+                        var logMessages = ReceiverUtils.ParseLog4JXmlLogEvents(ns, "TcpLogger");
+                        foreach (var logMessage in logMessages)
+                        {
+                            logMessage.RootLoggerName = logMessage.LoggerName;
+                            logMessage.LoggerName = string.Format(":{1}.{0}", logMessage.LoggerName, _port);
 
-                        if (Notifiable != null)
-                            Notifiable.Notify(logMsg);
+                            if (Notifiable != null)
+                                Notifiable.Notify(logMessage);
+                        }
                     }
             }
-            catch (IOException)
+            catch (IOException e)
             {
+                Console.WriteLine(e);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
+            Console.WriteLine("Connection closed");
         }
 
         public override void Terminate()

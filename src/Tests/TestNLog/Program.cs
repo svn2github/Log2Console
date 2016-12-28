@@ -8,18 +8,22 @@ namespace TestNLog
   {
     static readonly Logger _log = LogManager.GetCurrentClassLogger();
 
-    static void Main(string[] args)
-    {
-      var key = Console.ReadKey();
-      while (key.Key != ConsoleKey.X)
-      {
-        DoLog();
-        DoWinDebug();
-        key = Console.ReadKey();
-      }
+        static void Main(string[] args)
+        {
+            Console.Title = "TestNLog";
+            Console.WriteLine("Press x to exit, any other to run tests.");
+            var key = Console.ReadKey();
+            while (key.Key != ConsoleKey.X)
+            {
+                DoLog();
+                DoWinDebug();
+
+                Console.WriteLine("Press x to exit, any other to run tests.");
+                key = Console.ReadKey();
+            }
 
 
-    }
+        }
 
     static void DoWinDebug()
     {
@@ -54,6 +58,15 @@ namespace TestNLog
 
       _log.Warn("This is a message on many lines...\nlines...\nlines...\nlines...");
       _log.Warn("This is a message on many lines...\r\nlines...\r\nlines...\r\nlines...");
+
+            try
+            {
+                throw new Exception("Truly exceptional!");
+            }
+            catch(Exception ex)
+            {
+                _log.Error(ex, "Exception with stack trace");
+            }
 
       var dm = new DummyManager();
       dm.DoIt();

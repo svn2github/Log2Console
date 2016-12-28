@@ -61,6 +61,21 @@ namespace Log2Console.Receiver
             set { _bufferSize = value; }
         }
 
+        public enum LogFormat
+        {
+            Log4J,
+            Serilog
+        }
+
+        [Category("Configuration")]
+        [DisplayName("Log Format")]
+        public LogFormat LogFormatType { get; set; } = LogFormat.Log4J;
+
+        [Category("Configuration")]
+        [DisplayName("Condense Camel Case")]
+        public bool CondenseCamelCase { get; set; } = true;
+            
+
 
         #region IReceiver Members
 
@@ -75,7 +90,12 @@ namespace Log2Console.Receiver
                     "    <remoteAddress value=\"localhost\" />" + Environment.NewLine +
                     "    <remotePort value=\"7071\" />" + Environment.NewLine +
                     "    <layout type=\"log4net.Layout.XmlLayoutSchemaLog4j\" />" + Environment.NewLine +
-                    "</appender>";
+                    "</appender>" + Environment.NewLine +
+                    "Configuration for Serilog:" + Environment.NewLine +
+                    "Log.Logger = new LoggerConfiguration()       " + Environment.NewLine +
+                    "	.MinimumLevel.Verbose()                   " + Environment.NewLine +
+                    "	.WriteTo.UDPSink(IPAddress.Loopback, 7071)" + Environment.NewLine +
+                    "	.CreateLogger();                          ";
             }
         }
 
@@ -133,10 +153,39 @@ namespace Log2Console.Receiver
                     if (Notifiable == null)
                         continue;
 
-                    LogMessage logMsg = ReceiverUtils.ParseLog4JXmlLogEvent(loggingEvent, "UdpLogger");
-                    logMsg.RootLoggerName = _remoteEndPoint.Address.ToString().Replace(".", "-");
-                    logMsg.LoggerName = string.Format("{0}_{1}", _remoteEndPoint.Address.ToString().Replace(".", "-"), logMsg.LoggerName);
+                    LogMessage logMsg = null;
+                    switch (LogFormatType)
+                    {
+                        case LogFormat.Log4J:
+                            logMsg = ReceiverUtils.ParseLog4JXmlLogEvent(loggingEvent, "UdpLogger");
+                            break;
+                        case LogFormat.Serilog:
+                            logMsg = SerilogParser.Parse(loggingEvent, "UdpLogger");
+                            break;
+                    }
+                    //logMsg.RootLoggerName = _remoteEndPoint.Address.ToString().Replace(".", "-");
+                    //logMsg.LoggerName = string.Format("{0}_{1}", _remoteEndPoint.Address.ToString().Replace(".", "-"), logMsg.LoggerName);
+                    logMsg.RootLoggerName = logMsg.LoggerName;
+                    if (CondenseCamelCase && logMsg.LoggerName != null)
+                    {
+                        var newName = "";
+                        var stopAt = logMsg.LoggerName.LastIndexOf('.');
+                        if (stopAt > 0)
+                        {
+                            for (int i = 0; i < stopAt; i++)
+                            {
+                                if (Char.IsUpper(logMsg.LoggerName[i]) || logMsg.LoggerName[i] == '.')
+                                {
+                                    newName += logMsg.LoggerName[i];
+                                }
+                            }
+                            newName += logMsg.LoggerName.Substring(stopAt);
+                            logMsg.RootLoggerName = newName;
+                        }
+                    }
+                    logMsg.LoggerName = string.Format(":{1}.{0}", logMsg.LoggerName, _port);
                     Notifiable.Notify(logMsg);
+
                 }
                 catch (Exception ex)
                 {

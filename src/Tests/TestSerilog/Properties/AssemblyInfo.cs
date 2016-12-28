@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Log2Console")]
-[assembly: AssemblyDescription("Log2Console is an advanced log message viewer for log4net, log4j and log4cxx.")]
+[assembly: AssemblyTitle("SerilogTest")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Rémy Baudet aka Statyk7")]
-[assembly: AssemblyProduct("Log2Console")]
-[assembly: AssemblyCopyright("Copyright © Rémy Baudet 2010")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SerilogTest")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d9e8e589-75a9-4851-9ca5-f10f0522aa37")]
+[assembly: Guid("b7c629ff-9c17-4373-9695-1e84b3a816ac")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -28,5 +29,8 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.6.*")]
-//[assembly: AssemblyFileVersion("1.6.*")]
+// You can specify all the values or you can default the Build and Revision Numbers 
+// by using the '*' as shown below:
+// [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
